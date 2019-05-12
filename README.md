@@ -1,24 +1,3 @@
-# README
+# productfetch by Gilbert Hsu
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[![Codeship Status for sketchbook21/product-fetch](https://app.codeship.com/projects/bddd31c0-572a-0137-2fd5-1a9663bf0318/status?branch=master)](https://app.codeship.com/projects/341646)
