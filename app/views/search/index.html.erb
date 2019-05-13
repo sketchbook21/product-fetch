@@ -1,0 +1,12 @@
+<h1>Gil's New Awesome Marketplace of Wonders</h1>
+<ol>
+  <% @response.each do |response| %>
+    <% product_image = "" %>
+    <% if response["pictureURLSuperSize"] %>
+      <% product_image = response["pictureURLSuperSize"] %>
+    <% else %>
+      <% product_image = response["galleryURL"] %>
+    <% end %>
+    <li><img src="<%= product_image %>"/><a href="<%= response["viewItemURL"]%>"><%= response["title"] %> | <%= response["sellingStatus"]["currentPrice"]["__content__"] %> <%= response["sellingStatus"]["currentPrice"]["currencyId"]%> | <%= response["condition"]["conditionDisplayName"]%></li>
+  <% end %>
+</ol>
