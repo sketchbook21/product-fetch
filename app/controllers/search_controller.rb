@@ -5,8 +5,8 @@ class SearchController < ApplicationController
     # amazon_response = amazon()
     # binding.pry
 
-    ebay_fetch = Ebay.new
-    @responses = ebay_fetch.fetch('ipad pro 64')
+    new_ebay_search = Ebay.new
+    @response = new_ebay_search.fetch('ipad pro 64')
 
   end
 

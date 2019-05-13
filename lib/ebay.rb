@@ -42,7 +42,7 @@ class Ebay
 
     url = "https://svcs.ebay.com/services/search/FindingService/v1"
     response = HTTParty.post(url, {
-      :headers => {"X-EBAY-SOA-SECURITY-APPNAME" => "GilbertH-neworuse-PRD-9f2fb35bc-7a1e5042", "X-EBAY-SOA-OPERATION-NAME" => "findItemsByKeywords"},
+      :headers => {"X-EBAY-SOA-SECURITY-APPNAME" => "#{ENV["EBAY_CLIENT_ID"]}", "X-EBAY-SOA-OPERATION-NAME" => "findItemsByKeywords"},
       :body => request_body
     })
 
