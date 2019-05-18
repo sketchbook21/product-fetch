@@ -13,5 +13,4 @@ class SearchController < ApplicationController
     @amazon_response = amazon_search.fetch('ipad pro 64')
 
   end
-
 end
