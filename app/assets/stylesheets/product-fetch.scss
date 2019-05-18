@@ -1,0 +1,36 @@
+.ui-block {
+  // background-color: lightblue;
+  padding: 10px;
+  // border: 1px solid black;
+}
+
+.postfix {
+  font-family: 'Overpass', sans-serif;
+  font-weight: 700;
+  font-size: 1.7rem;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+.logo-text {
+  font-family: 'Overpass', sans-serif;
+  font-weight: 400;
+  font-size: 1.7rem;
+  font-style: italic;
+  letter-spacing: 1px;
+  color: #2BBBAC !important;
+}
+
+.logo-text-bold {
+  font-weight: 700;
+  font-size: 1.7rem !important;
+  color: #2BBBAC !important;
+}
+
+.main-search{
+  padding-top: 10px;
+}
+
+.result-detail {
+  height: 200px;
+}
