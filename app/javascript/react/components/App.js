@@ -1,12 +1,12 @@
 import React from 'react'
-import { browserHistory, Router, Route, IndexRoute } from 'react-router'
+import { browserHistory, Router, Route, Redirect } from 'react-router'
 import SearchResultsContainer from '../containers/SearchResultsContainer'
 
 export const App = (props) => {
   return (
     <Router history={browserHistory}>
-      <Route path='search' component={SearchResultsContainer} />
-      <Route path='search/:keyword' component={SearchResultsContainer} />
+      <Route path='/' component={SearchResultsContainer}/>
+      <Redirect from="*" to="/" />
     </Router>
   )
 }

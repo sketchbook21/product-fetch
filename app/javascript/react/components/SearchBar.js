@@ -19,30 +19,7 @@ class SearchBar extends Component {
         search: this.state.search
       }
     }
-    fetch(`/api/v1/search/`, {
-      method: 'POST',
-      body: JSON.stringify(searchTerm),
-      credentials: 'same-origin',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        return response
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`, error = new Error(errorMessage)
-        throw (error)
-      }
-    })
-    .then(response => response.json())
-    .then(body => {
-      this.setState({
-        search: body.search
-      })
-      console.log(body.amazon_response)
-    })
+    this.props.fetchResults(searchTerm)
   }
 
   render() {
