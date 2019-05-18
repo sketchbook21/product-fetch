@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import SubNav from '../components/SubNav'
 
-class NewResultDetailContainer extends Component {
+class UsedResultsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,12 +10,13 @@ class NewResultDetailContainer extends Component {
   }
 
   render() {
-    return(
+    return (
       <div className="result-detail ui-block">
-        Hello from NewResultDetailContainer
+        <SubNav />
+        Hello from UsedResultsContainer
       </div>
     )
   }
 }
 
-export default NewResultDetailContainer;
+export default UsedResultsContainer;

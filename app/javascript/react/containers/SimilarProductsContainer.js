@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class NewResultDetailContainer extends Component {
+class SimilarProductsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,12 +9,12 @@ class NewResultDetailContainer extends Component {
   }
 
   render() {
-    return(
+    return (
       <div className="result-detail ui-block">
-        Hello from NewResultDetailContainer
+        Hello from SimilarProductsContainer
       </div>
     )
   }
 }
 
-export default NewResultDetailContainer;
+export default SimilarProductsContainer;

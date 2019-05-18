@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import SearchBar from '../components/SearchBar'
 import NewResultDetailContainer from './NewResultDetailContainer'
 import UsedResultDetailContainer from './UsedResultDetailContainer'
+import SimilarProductsContainer from './SimilarProductsContainer'
+import SubNav from '../components/SubNav'
+import UsedResultsContainer from './UsedResultsContainer'
+import RelatedProductsContainer from './RelatedProductsContainer';
 
 class SearchResultsContainer extends Component {
   constructor(props) {
@@ -16,24 +20,20 @@ class SearchResultsContainer extends Component {
       <div>
         <SearchBar />
         <div className="row">
-          <div className="small-8 columns ui-block">
+          <div className="small-8 columns">
             <NewResultDetailContainer />
           </div>
-          <div className="small-8 columns ui-block">
+          <div className="small-8 columns">
             <UsedResultDetailContainer />
           </div>
         </div>
         <div className="row">
-          <div className="small-8 columns ui-block">
-            Similar Products
+          <div className="small-8 columns">
+            <SimilarProductsContainer />
+            <RelatedProductsContainer />
           </div>
-          <div className="small-8 columns ui-block">
-            <dl className="sub-nav">
-              <dt>Used:</dt>
-              <dd className="active"><a href="#">Completed Listings</a></dd>
-              <dd><a href="#">Auctions Ending Soon</a></dd>
-              <dd><a href="#">New BIN Listings</a></dd>
-            </dl>
+          <div className="small-8 columns">
+            <UsedResultsContainer />  
           </div>
         </div>
       </div>

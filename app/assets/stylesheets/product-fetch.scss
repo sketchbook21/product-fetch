@@ -1,7 +1,9 @@
 .ui-block {
-  // background-color: lightblue;
+  background-color: lightblue;
   padding: 10px;
   // border: 1px solid black;
+  border-radius: 20px;
+  margin: 10px 0px;
 }
 
 .postfix {
@@ -33,4 +35,8 @@
 
 .result-detail {
   height: 200px;
+}
+
+.underline {
+  border-bottom: 1px solid #cccccc
 }

@@ -1254,7 +1254,7 @@ $sub-nav-font-color: $oil;
 // $sub-nav-text-decoration: none;
 $sub-nav-padding: rem-calc(3 8);
 $sub-nav-border-radius: 3px;
-$sub-nav-font-color-hover: scale-color($sub-nav-font-color, $lightness: 50%);
+$sub-nav-font-color-hover: scale-color($primary-color, $lightness: 1%);
 
 
 // We use these to control the active item styles

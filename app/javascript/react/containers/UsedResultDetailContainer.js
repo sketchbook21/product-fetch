@@ -10,7 +10,7 @@ class UsedResultDetailContainer extends Component {
 
   render() {
     return(
-      <div className="result-detail">
+      <div className="result-detail ui-block">
         Hello from UsedResultDetailContainer
       </div>
     )
