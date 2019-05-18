@@ -3,7 +3,6 @@ import SearchBar from '../components/SearchBar'
 import NewResultDetailContainer from './NewResultDetailContainer'
 import UsedResultDetailContainer from './UsedResultDetailContainer'
 import SimilarProductsContainer from './SimilarProductsContainer'
-import SubNav from '../components/SubNav'
 import UsedResultsContainer from './UsedResultsContainer'
 import RelatedProductsContainer from './RelatedProductsContainer';
 
@@ -37,8 +36,12 @@ class SearchResultsContainer extends Component {
     .then(response => response.json())
     .then(body => {
       this.setState({
+<<<<<<< HEAD
         newDetailData: body.amazon_response_first,
         similarProductsData: body.amazon_response_similar
+=======
+        search: body.search
+>>>>>>> 5d98a56f3aa69f9f3d9cbe278127e8a83b5596f3
       })
       console.log(body)
     })
@@ -48,7 +51,11 @@ class SearchResultsContainer extends Component {
     console.log(this.state)
     return (
       <div>
-        <SearchBar />
+        <SearchBar 
+          fetchResults={this.fetchResults}
+          handleChange={this.handleChange}
+          value={this.state.search}
+        />
         <div className="row">
           <div className="small-8 columns">
             <NewResultDetailContainer />
