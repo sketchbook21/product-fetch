@@ -6,6 +6,7 @@ export const App = (props) => {
   return (
     <Router history={browserHistory}>
       <Route path='search' component={SearchResultsContainer} />
+      <Route path='search/:keyword' component={SearchResultsContainer} />
     </Router>
   )
 }
