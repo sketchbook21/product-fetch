@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'search#index'
   devise_for :users
+
   
   resources :search, only: [:index]
   namespace :api do
@@ -8,4 +9,6 @@ Rails.application.routes.draw do
       resources :search, only: [:create]
     end
   end
+
+  get '*path' => 'search#index'
 end
