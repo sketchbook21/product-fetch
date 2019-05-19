@@ -1,7 +1,73 @@
+$primary-color: #2BBBAC;
+$aluminum: #999999;
+
+.center {
+  text-align: center;
+}
+
+a {
+  color: #333333;
+}
+
+.w3 {
+  font-weight: 300;
+}
+
+.w4 {
+  font-weight: 400;
+}
+
+.w5 {
+  font-weight: 500;
+}
+
+.w7 {
+  font-weight: 700;
+}
+
+.w9 {
+  font-weight: 900;
+}
+
+.s1 {
+  font-size: 2.5rem
+}
+
+.s2 {
+  font-size: 1.7rem;
+}
+
+.s3 {
+  font-size: 1.2rem;
+}
+
+.s4 {
+  font-size: 0.9rem;
+}
+
+.s5 {
+  font-size: 0.75rem;
+}
+
+.s6 {
+  font-size: 0.6rem;
+}
+
+.primary {
+  color: $primary-color;
+}
+
+.gray {
+  color: $aluminum;
+}
+
+.margin-bottom {
+  margin-bottom: 10px;
+}
+
 .ui-block {
   background-color: lightblue;
   padding: 10px;
-  // border: 1px solid black;
   border-radius: 20px;
   margin: 10px 0px;
 }
@@ -32,10 +98,33 @@
   padding-top: 10px;
 }
 
-.result-detail {
-  height: 200px;
+.detail-image-tile {
+  height: 300px;
+  object-fit: contain;
 }
 
 .underline {
-  border-bottom: 1px solid #cccccc
+  border-bottom: 1px solid #cccccc;
 }
+
+.detail-price {
+  padding-top: 20px;
+}
+
+.detail-price-button {
+  border: 1px solid #2BBBAC;
+  border-radius: 5px;
+  margin: 15px 0px 3px 0px !important;
+  line-height: 100%;
+}
+
+.detail-price .padding-top {
+  padding-top: 3px;
+}
+.see-on-button {
+  background-color: #2BBBAC;
+  color: white;
+  font-size: 0.8rem;
+  height: 2.4rem;
+}
+

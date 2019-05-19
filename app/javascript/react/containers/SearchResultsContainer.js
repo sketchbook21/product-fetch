@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import SearchBar from '../components/SearchBar'
-import NewResultDetailContainer from './NewResultDetailContainer'
+import NewResultDetailTile from '../tiles/NewResultDetailTile'
 import UsedResultDetailContainer from './UsedResultDetailContainer'
 import SimilarProductsContainer from './SimilarProductsContainer'
 import UsedResultsContainer from './UsedResultsContainer'
@@ -10,6 +10,8 @@ class SearchResultsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      newDetailData: {},
+      similarProductsData: [],
     }
   }
 
@@ -34,13 +36,15 @@ class SearchResultsContainer extends Component {
     .then(response => response.json())
     .then(body => {
       this.setState({
-        search: body.search
+        newDetailData: body.amazon_response_first,
+        similarProductsData: body.amazon_response_similar
       })
       console.log(body)
     })
   }
 
   render() {
+    console.log(this.state)
     return (
       <div>
         <SearchBar 
@@ -49,8 +53,11 @@ class SearchResultsContainer extends Component {
           value={this.state.search}
         />
         <div className="row">
+          <div className="small-16 columns">
+            <h4>Top Results</h4>
+          </div>
           <div className="small-8 columns">
-            <NewResultDetailContainer />
+            <NewResultDetailTile data={this.state.newDetailData}/>
           </div>
           <div className="small-8 columns">
             <UsedResultDetailContainer />
@@ -58,7 +65,7 @@ class SearchResultsContainer extends Component {
         </div>
         <div className="row">
           <div className="small-8 columns">
-            <SimilarProductsContainer />
+            <SimilarProductsContainer data={this.state.similarProductsData}/>
             <RelatedProductsContainer />
           </div>
           <div className="small-8 columns">
