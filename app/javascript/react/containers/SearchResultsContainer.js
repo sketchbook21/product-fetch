@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import SearchBar from '../components/SearchBar'
 import NewResultDetailTile from '../tiles/NewResultDetailTile'
-import UsedResultDetailContainer from './UsedResultDetailContainer'
+import UsedResultDetailTile from '../tiles/UsedResultDetailTile'
 import SimilarProductsContainer from './SimilarProductsContainer'
 import UsedResultsContainer from './UsedResultsContainer'
 import RelatedProductsContainer from './RelatedProductsContainer';
@@ -10,8 +10,10 @@ class SearchResultsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newDetailData: {},
-      similarProductsData: [],
+      amazonDetailData: {},
+      amazonSimilarData: [],
+      ebayDetailData: {},
+      ebayEndSoon: [],
     }
   }
 
@@ -36,8 +38,9 @@ class SearchResultsContainer extends Component {
     .then(response => response.json())
     .then(body => {
       this.setState({
-        newDetailData: body.amazon_response_first,
-        similarProductsData: body.amazon_response_similar
+        amazonDetailData: body.amazon_detail,
+        amazonSimilarData: body.amazon_similar,
+        ebayDetailData: body.ebay_detail
       })
       console.log(body)
     })
@@ -57,15 +60,15 @@ class SearchResultsContainer extends Component {
             <h4>Top Results</h4>
           </div>
           <div className="small-8 columns">
-            <NewResultDetailTile data={this.state.newDetailData}/>
+            <NewResultDetailTile data={this.state.amazonDetailData}/>
           </div>
           <div className="small-8 columns">
-            <UsedResultDetailContainer />
+            <UsedResultDetailTile data={this.state.ebayDetailData}/>
           </div>
         </div>
         <div className="row">
           <div className="small-8 columns">
-            <SimilarProductsContainer data={this.state.similarProductsData}/>
+            <SimilarProductsContainer data={this.state.amazonSimilarData}/>
             <RelatedProductsContainer />
           </div>
           <div className="small-8 columns">

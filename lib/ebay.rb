@@ -13,7 +13,7 @@ class Ebay
   def initialize
   end
 
-  def fetch(keywords)
+  def fetchCurrent(search_term, sort_order, listing_type, entries_per_page, page_number)
     namespace = {
         "xmlns" => "http://www.ebay.com/marketplace/search/v1/services"
       }
@@ -25,17 +25,23 @@ class Ebay
             xml.trackingId "#{ENV["EBAY_CAMPAIGN_ID"]}"
             xml.customId "k-man"
           }
-          xml.sortOrder "EndTime"
+          xml.sortOrder "#{sort_order}"
           xml.paginationInput {
-            xml.entriesPerPage "10"
-            xml.pageNumber "2"
+            xml.entriesPerPage "#{entries_per_page}"
+            xml.pageNumber "#{page_number}"
           }
           xml.itemFilter {
             xml.name "Condition"
             xml.value "Used"
           }
+          xml.itemFilter {
+            xml.name "ListingType"
+            xml.value "#{listing_type}"
+          }
           xml.outputSelector "PictureURLSuperSize"
-          xml.keywords "#{keywords}"
+          xml.outputSelector "PictureURLLarge"
+          xml.outputSelector "GalleryPlusPictureURL"
+          xml.keywords "#{search_term}"
         }
       end
     request_body = builder.to_xml
@@ -46,8 +52,23 @@ class Ebay
       :body => request_body
     })
 
-    # binding.pry
     @response = response["findItemsByKeywordsResponse"]["searchResult"]["item"]
+
+    if @response.kind_of?(Array)
+      @response.each do |item|
+        price_integer = item["listingInfo"]["buyItNowPrice"]["__content__"].to_f
+        price_decimal_string = '%.2f' % price_integer
+        price_string_human = "$#{price_decimal_string}"
+        item["buyItNowHuman"] = "#{price_string_human}"
+      end
+      return @response
+    else
+      price_integer = @response["listingInfo"]["buyItNowPrice"]["__content__"].to_f
+      price_decimal_string = '%.2f' % price_integer
+      price_string_human = "$#{price_decimal_string}"
+      @response["buyItNowHuman"] = "#{price_string_human}"
+      return @response
+    end
   end
 
 end

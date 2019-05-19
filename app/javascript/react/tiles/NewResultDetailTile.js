@@ -8,10 +8,6 @@ class NewResultDetailTile extends Component {
     }
   }
 
-  urlLink = () => {
-    window.open(this.props.data.DetailPageURL, "_blank")
-  }
-
   render() {
     if (!this.props.data.ItemAttributes) {
       return (
@@ -34,7 +30,7 @@ class NewResultDetailTile extends Component {
             <div className="w7">New</div>
             <a className="w3" href={this.props.data.DetailPageURL} target="_blank">{productTitle}</a>
             <a href={this.props.data.DetailPageURL} target="_blank">
-              <div className="row detail-price-button center" onClick={this.urlLink}>
+              <div className="row detail-price-button center">
                 <div className="small-8 columns center padding-top">
                   <h5 className="w7">
                     {price}
