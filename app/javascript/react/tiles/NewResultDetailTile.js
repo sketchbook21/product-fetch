@@ -8,6 +8,10 @@ class NewResultDetailTile extends Component {
     }
   }
 
+  urlLink = () => {
+    window.open(this.props.data.DetailPageURL, "_blank")
+  }
+
   render() {
     if (!this.props.data.ItemAttributes) {
       return (
@@ -22,21 +26,25 @@ class NewResultDetailTile extends Component {
       return (
         <div className="row">
           <div className="small-8 columns center">
-            <img src={this.props.data.LargeImage.URL} className="detail-image-tile" />
+            <a href={this.props.data.DetailPageURL} target="_blank">
+              <img src={this.props.data.LargeImage.URL} className="detail-image-tile" />
+            </a>
           </div>
           <div className="small-8 columns detail-price">
             <div className="w7">New</div>
             <a className="w3" href={this.props.data.DetailPageURL} target="_blank">{productTitle}</a>
-            <div className="row detail-price-button center">
-              <div className="small-8 columns center padding-top">
-                <h5 className="w7">
-                  {price}
-                </h5>
+            <a href={this.props.data.DetailPageURL} target="_blank">
+              <div className="row detail-price-button center" onClick={this.urlLink}>
+                <div className="small-8 columns center padding-top">
+                  <h5 className="w7">
+                    {price}
+                  </h5>
+                </div>
+                <div className="small-8 columns center see-on-button padding-top">
+                  See On Amazon
+                </div>
               </div>
-              <div className="small-8 columns center see-on-button padding-top">
-                See On Amazon
-              </div>
-            </div>
+            </a>
             <div className="s6 center gray margin-bottom">
               productfetch may get a commission from this link
             </div>

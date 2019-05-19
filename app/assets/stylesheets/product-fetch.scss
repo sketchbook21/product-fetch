@@ -1,12 +1,21 @@
 $primary-color: #2BBBAC;
 $aluminum: #999999;
+$oil: #333333;
 
 .center {
   text-align: center;
 }
 
 a {
-  color: #333333;
+  color: $oil;
+}
+
+a:visited {
+  color: $oil;
+}
+
+a:hover {
+  color: $primary-color;
 }
 
 .w3 {
