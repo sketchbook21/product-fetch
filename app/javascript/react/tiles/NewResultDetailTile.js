@@ -17,6 +17,8 @@ class NewResultDetailTile extends Component {
       )
     } else {
       let releaseDate = this.props.data.ItemAttributes.ReleaseDateHuman ? this.props.data.ItemAttributes.ReleaseDateHuman : "N/A"
+      let productTitle = this.props.data.ItemAttributes.Title.length > 65 ? `${this.props.data.ItemAttributes.Title.substring(0, 65)}...` : this.props.data.ItemAttributes.Title
+      let price = this.props.data.ItemAttributes.ListPrice ? this.props.data.ItemAttributes.ListPrice.FormattedPrice : this.props.data.OfferSummary.LowestNewPrice.FormattedPrice
       return (
         <div className="row">
           <div className="small-8 columns center">
@@ -24,11 +26,11 @@ class NewResultDetailTile extends Component {
           </div>
           <div className="small-8 columns detail-price">
             <div className="w7">New</div>
-            <a className="w3" href={this.props.data.DetailPageURL} target="_blank">{this.props.data.ItemAttributes.Title}</a>
+            <a className="w3" href={this.props.data.DetailPageURL} target="_blank">{productTitle}</a>
             <div className="row detail-price-button center">
               <div className="small-8 columns center padding-top">
                 <h5 className="w7">
-                  {this.props.data.ItemAttributes.ListPrice.FormattedPrice}
+                  {price}
                 </h5>
               </div>
               <div className="small-8 columns center see-on-button padding-top">
