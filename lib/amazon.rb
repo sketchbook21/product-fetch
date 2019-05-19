@@ -32,9 +32,11 @@ class Amazon
       "Operation" => "ItemSearch",
       "AWSAccessKeyId" => "#{access_key_id}",
       "AssociateTag" => "#{associate_tag}",
+      "Condition" => "New",
+      "RelationshipType" => "AuthorityTitle",
       "SearchIndex" => "All",
       "Keywords" => "#{keywords}",
-      "ResponseGroup" => "Medium"
+      "ResponseGroup" => "Large,RelatedItems,Reviews"
     }
 
     # Set current timestamp if not set
@@ -58,6 +60,15 @@ class Amazon
 
     response = response_raw["ItemSearchResponse"]["Items"]["Item"]
 
+    response.each do |item|
+      if item["ItemAttributes"]["ReleaseDate"]
+        release_date = Date.parse(item["ItemAttributes"]["ReleaseDate"])
+        release_date_human = release_date.strftime('%b %e, %Y')
+        item["ItemAttributes"]["ReleaseDateHuman"] = release_date_human
+      end
+    end
+
+    return response
   end
 
 end

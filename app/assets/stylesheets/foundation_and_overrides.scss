@@ -244,7 +244,7 @@ $global-radius: 5px;
 // $subheader-bottom-margin: .5rem;
 
 // A general <small> styling
-// $small-font-size: 60%;
+$small-font-size: 60%;
 // $small-font-color: scale-color($header-font-color, $lightness: 35%);
 
 // We use these to style paragraphs
@@ -652,16 +652,16 @@ $global-radius: 5px;
 $input-font-size: rem-calc(20);
 $input-placeholder-font-color: #cccccc;
 // $input-bg-color: $white;
-// $input-focus-bg-color: scale-color($white, $lightness: -2%);
+$input-focus-bg-color: $white;
 // $input-border-color: scale-color($white, $lightness: -20%);
-// $input-focus-border-color: scale-color($white, $lightness: -40%);
+$input-focus-border-color: $primary-color;
 // $input-border-style: solid;
 $input-border-width: 0.5px;
 $input-border-radius: $global-radius;
 // $input-disabled-bg: $gainsboro;
 // $input-disabled-cursor: $cursor-default-value;
 $input-box-shadow: inset 0 1px 1px rgba(0,0,0,0.01);
-// $input-include-glowing-effect: false;
+// $input-include-glowing-effect: true;
 
 // We use these to style the fieldset border and spacing.
 // $fieldset-border-style: solid;
