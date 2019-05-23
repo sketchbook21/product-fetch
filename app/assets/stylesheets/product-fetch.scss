@@ -63,11 +63,11 @@ a:hover {
 }
 
 .primary {
-  color: $primary-color;
+  color: $primary-color !important;
 }
 
 .gray {
-  color: $aluminum;
+  color: $aluminum !important;
 }
 
 .margin-bottom {
@@ -130,6 +130,11 @@ a:hover {
 .detail-price .padding-top {
   padding-top: 3px;
 }
+
+// .detail-title {
+//   overflow: hidden;
+// }
+
 .see-on-button {
   background-color: #2BBBAC;
   color: white;
