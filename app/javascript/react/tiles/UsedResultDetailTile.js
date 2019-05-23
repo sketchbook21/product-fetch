@@ -23,6 +23,8 @@ class UsedResultDetailTile extends Component {
       let productTitle = this.props.data.title
       let productURL = this.props.data.viewItemURL
       let productPrice = this.props.data.buyItNowHuman
+      let priceAvg = this.props.priceAvg ? this.props.priceAvg : "N/A"
+      let priceAvgDiscount = this.props.avgDiscount ? this.props.avgDiscount : "N/A"
       let imageURL = 'http://www.culturalwellnesscenter.org/wp-content/uploads/2015/11/no-image-available.png'
       if (this.props.data.pictureURLSuperSize) {
         imageURL = this.props.data.pictureURLSuperSize
@@ -33,6 +35,7 @@ class UsedResultDetailTile extends Component {
       } else if (this.props.data.galleryURL) {
         imageURL = this.props.data.galleryURL
       }
+      let auctionPrice = this.props.data.auctionHuman
   
       return (
         <div className="row">
@@ -43,12 +46,12 @@ class UsedResultDetailTile extends Component {
           </div>
           <div className="small-8 columns detail-price">
             <div className="w7">Used</div>
-            <a className="w3" href={productURL} target="_blank">{productTitle}</a>
+            <a className="w3 detail-title" href={productURL} target="_blank">{productTitle}</a>
             <a href={productURL} target="_blank">
               <div className="row detail-price-button center">
                 <div className="small-8 columns center padding-top">
                   <h5 className="w7">
-                    {productPrice}
+                    {auctionPrice}
                   </h5>
                 </div>
                 <div className="small-8 columns center see-on-button padding-top">
@@ -63,8 +66,9 @@ class UsedResultDetailTile extends Component {
               Product Details
             </div>
             <div className="s5 w3">
-              Average Used Price: <br />
-              Average Discount From New: <br />
+              Buy It Now Price: {productPrice} <br />
+              Avg Used Sale Price: {priceAvg} <br />
+              Avg Used Sale Discount Off New: {priceAvgDiscount} <br />
             </div>
           </div>
         </div>

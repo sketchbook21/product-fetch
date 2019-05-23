@@ -13,6 +13,9 @@ class SearchResultsContainer extends Component {
       amazonDetailData: {},
       amazonSimilarData: [],
       ebayDetailData: {},
+      ebayCompleted: [],
+      ebayAvg: "",
+      ebayAvgDiscount: "",
       ebayEndSoon: [],
     }
   }
@@ -40,9 +43,11 @@ class SearchResultsContainer extends Component {
       this.setState({
         amazonDetailData: body.amazon_detail,
         amazonSimilarData: body.amazon_similar,
-        ebayDetailData: body.ebay_detail
+        ebayDetailData: body.ebay_detail,
+        ebayCompleted: body.ebay_completed,
+        ebayAvg: body.ebay_avg,
+        ebayAvgDiscount: body.ebay_avg_discount,
       })
-      console.log(body)
     })
   }
 
@@ -63,7 +68,7 @@ class SearchResultsContainer extends Component {
             <NewResultDetailTile data={this.state.amazonDetailData}/>
           </div>
           <div className="small-8 columns">
-            <UsedResultDetailTile data={this.state.ebayDetailData}/>
+            <UsedResultDetailTile data={this.state.ebayDetailData} priceAvg={this.state.ebayAvg} avgDiscount={this.state.ebayAvgDiscount}/>
           </div>
         </div>
         <div className="row">
