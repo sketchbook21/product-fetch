@@ -1,5 +1,5 @@
 require "json"
-require "HTTParty"
+require "httparty"
 require "pry"
 require 'nokogiri'
 require 'time'
@@ -56,7 +56,7 @@ class Amazon
     # Generate the signed URL
     request_url = "https://#{endpoint}#{request_uri}?#{canonical_query_string}&Signature=#{URI.escape(signature, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))}"
 
-    response_raw = HTTParty.get(request_url)
+    response_raw = httparty.get(request_url)
 
     response = response_raw["ItemSearchResponse"]["Items"]["Item"]
 

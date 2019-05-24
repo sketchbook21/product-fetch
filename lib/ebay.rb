@@ -1,5 +1,5 @@
 require "json"
-require "HTTParty"
+require "httparty"
 require "pry"
 require 'nokogiri'
 require 'time'
@@ -47,7 +47,7 @@ class Ebay
     request_body = builder.to_xml
 
     url = "https://svcs.ebay.com/services/search/FindingService/v1"
-    response = HTTParty.post(url, {
+    response = httparty.post(url, {
       :headers => {"X-EBAY-SOA-SECURITY-APPNAME" => "#{ENV["EBAY_CLIENT_ID"]}", "X-EBAY-SOA-OPERATION-NAME" => "findItemsByKeywords"},
       :body => request_body
     })
@@ -110,7 +110,7 @@ class Ebay
     request_body = builder.to_xml
 
     url = "https://svcs.ebay.com/services/search/FindingService/v1"
-    response = HTTParty.post(url, {
+    response = httparty.post(url, {
       :headers => {"X-EBAY-SOA-SECURITY-APPNAME" => "#{ENV["EBAY_CLIENT_ID"]}", "X-EBAY-SOA-OPERATION-NAME" => "findCompletedItems"},
       :body => request_body
     })
