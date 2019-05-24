@@ -28,7 +28,9 @@ class NewResultDetailTile extends Component {
           </div>
           <div className="small-8 columns detail-price">
             <div className="w7">New</div>
-            <a className="w3 detail-title" href={this.props.data.DetailPageURL} target="_blank">{productTitle}</a>
+            <div className="detail-title">
+              <a className="w3" href={this.props.data.DetailPageURL} target="_blank">{productTitle}</a>
+            </div>
             <a href={this.props.data.DetailPageURL} target="_blank">
               <div className="row detail-price-button center">
                 <div className="small-8 columns center padding-top">
