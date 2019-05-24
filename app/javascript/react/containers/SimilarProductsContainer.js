@@ -12,7 +12,6 @@ class SimilarProductsContainer extends Component {
     let products = this.props.data
     let productsDisplay = products.map(product => {
       let productPrice = product.ItemAttributes["ListPrice"] ? product.ItemAttributes["ListPrice"]["FormattedPrice"] : "N/A"
-      debugger
       return(
         <div className="result-tile">
           <div className="row underline">

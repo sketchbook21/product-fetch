@@ -1,12 +1,3 @@
-require "json"
-require "httparty"
-require "pry"
-require 'nokogiri'
-require 'time'
-require 'uri'
-require 'openssl'
-require 'base64'
-
 class Ebay
   attr_accessor :response
 
@@ -47,7 +38,7 @@ class Ebay
     request_body = builder.to_xml
 
     url = "https://svcs.ebay.com/services/search/FindingService/v1"
-    response = httparty.post(url, {
+    response = HTTParty.post(url, {
       :headers => {"X-EBAY-SOA-SECURITY-APPNAME" => "#{ENV["EBAY_CLIENT_ID"]}", "X-EBAY-SOA-OPERATION-NAME" => "findItemsByKeywords"},
       :body => request_body
     })
@@ -110,7 +101,7 @@ class Ebay
     request_body = builder.to_xml
 
     url = "https://svcs.ebay.com/services/search/FindingService/v1"
-    response = httparty.post(url, {
+    response = HTTParty.post(url, {
       :headers => {"X-EBAY-SOA-SECURITY-APPNAME" => "#{ENV["EBAY_CLIENT_ID"]}", "X-EBAY-SOA-OPERATION-NAME" => "findCompletedItems"},
       :body => request_body
     })
