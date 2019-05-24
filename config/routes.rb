@@ -1,4 +1,4 @@
-Rails.application.routes.default_url_options[:host] = 'immense-scrubland-92013.herokuapp.com'
+Rails.application.routes.default_url_options[:host] = 'product-fetch.herokuapp.com'
 
 Rails.application.routes.draw do
   root 'search#index'
