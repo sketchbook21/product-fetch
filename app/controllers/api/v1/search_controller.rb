@@ -12,7 +12,8 @@ class Api::V1::SearchController < ApplicationController
     @amazon_response_detail = amazon_response.first
     amazon_detail_price = @amazon_response_detail["ItemAttributes"]["ListPrice"]["Amount"].to_f / 100 
     
-    @amazon_response_similar = amazon_response.drop(1)
+    amazon_response_similar_all = amazon_response.drop(1)
+    @amazon_response_similar = amazon_response_similar_all.shift(5)
 
     ebay_search_detail = Ebay.new
     @ebay_response_detail = ebay_search_detail.fetchCurrent(
