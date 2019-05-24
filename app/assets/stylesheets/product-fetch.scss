@@ -6,6 +6,10 @@ $oil: #333333;
   text-align: center;
 }
 
+.right {
+  text-align: right;
+}
+
 a {
   color: $oil;
 }
@@ -113,9 +117,25 @@ a:hover {
   border-radius: 10px;
 }
 
-.underline {
-  border-bottom: 1px solid #cccccc;
+.result-container {
+  margin-top: 20px;
 }
+
+.result-image-tile {
+  height: 100px;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+.result-tile {
+  overflow: hidden;
+  padding: 15px 0;
+  border-bottom: 1px solid #ececec;
+}
+
+// .underline {
+//   border-bottom: 1px solid #cccccc;
+// }
 
 .detail-price {
   padding-top: 0px;
@@ -144,4 +164,6 @@ a:hover {
   font-size: 0.8rem;
   height: 2.4rem;
 }
+
+
 
