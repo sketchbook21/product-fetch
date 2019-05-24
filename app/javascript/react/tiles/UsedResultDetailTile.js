@@ -46,7 +46,9 @@ class UsedResultDetailTile extends Component {
           </div>
           <div className="small-8 columns detail-price">
             <div className="w7">Used</div>
-            <a className="w3 detail-title" href={productURL} target="_blank">{productTitle}</a>
+            <div className="detail-title">
+              <a className="w3  " href={productURL} target="_blank">{productTitle}</a>
+            </div>
             <a href={productURL} target="_blank">
               <div className="row detail-price-button center">
                 <div className="small-8 columns center padding-top">
@@ -63,12 +65,12 @@ class UsedResultDetailTile extends Component {
               productfetch may get a commission from this link
             </div>
             <div className="s4 w5">
-              Product Details
+              Price Data
             </div>
             <div className="s5 w3">
               Buy It Now Price: {productPrice} <br />
               Avg Used Sale Price: {priceAvg} <br />
-              Avg Used Sale Discount Off New: {priceAvgDiscount} <br />
+              Avg Used Discount From New: {priceAvgDiscount} <br />
             </div>
           </div>
         </div>

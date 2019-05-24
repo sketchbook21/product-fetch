@@ -108,8 +108,9 @@ a:hover {
 }
 
 .detail-image-tile {
-  height: 300px;
+  height: 260px;
   object-fit: contain;
+  border-radius: 10px;
 }
 
 .underline {
@@ -117,7 +118,7 @@ a:hover {
 }
 
 .detail-price {
-  padding-top: 20px;
+  padding-top: 0px;
 }
 
 .detail-price-button {
@@ -131,9 +132,11 @@ a:hover {
   padding-top: 3px;
 }
 
-// .detail-title {
-//   overflow: hidden;
-// }
+.detail-title {
+  height: 70px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 
 .see-on-button {
   background-color: #2BBBAC;
