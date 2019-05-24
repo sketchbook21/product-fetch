@@ -39,7 +39,7 @@ class NewResultDetailTile extends Component {
                   </h5>
                 </div>
                 <div className="small-8 columns center see-on-button padding-top">
-                  See On Amazon
+                  See On<br/>Amazon
                 </div>
               </div>
             </a>
