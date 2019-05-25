@@ -54,7 +54,7 @@ class Amazon
     response.each do |item|
       if item["ItemAttributes"]["ReleaseDate"]
         release_date = Date.parse(item["ItemAttributes"]["ReleaseDate"])
-        release_date_human = release_date.strftime('%b %e, %Y')
+        release_date_human = release_date.strftime('%m/%d/%Y')
         item["ItemAttributes"]["ReleaseDateHuman"] = release_date_human
       end
     end
