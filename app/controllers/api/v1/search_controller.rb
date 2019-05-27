@@ -19,7 +19,7 @@ class Api::V1::SearchController < ApplicationController
     ebay_response = ebay_search.fetchCurrent(
       search_term, 
       "BestMatch", 
-      16, 
+      32, 
       1
       )
 

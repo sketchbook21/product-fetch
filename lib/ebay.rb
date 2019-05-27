@@ -22,8 +22,8 @@ class Ebay
             xml.pageNumber "#{page_number}"
           }
           xml.itemFilter {
-            xml.name "Condition"
-            xml.value "Used"
+            xml.name "ListingType"
+            xml.value "AuctionWithBIN"
           }
           xml.outputSelector "PictureURLSuperSize"
           xml.outputSelector "PictureURLLarge"
@@ -39,23 +39,36 @@ class Ebay
       :body => request_body
     })
     
-    @response = response["findItemsByKeywordsResponse"]["searchResult"]["item"]
+    response_array = response["findItemsByKeywordsResponse"]["searchResult"]["item"]
     
     # binding.pry
 
-    if @response.kind_of?(Array)
-      @response.each do |item|
-        # bin_price_integer = item["listingInfo"]["buyItNowPrice"]["__content__"].to_f
-        # bin_price_decimal_string = '%.2f' % bin_price_integer
-        # bin_price_string_human = "$#{bin_price_decimal_string}"
-        # item["buyItNowHuman"] = "#{bin_price_string_human}"
+    response_used = []
+    response_array.each do |item|
+      if item["condition"]["conditionId"] != "1000"
+        response_used << item
+      end
+    end
+
+    @response_batch = response_used[0 ... 16]
+
+    if @response_batch.kind_of?(Array)
+      @response_batch.each do |item|
+        bin_price_integer = item["listingInfo"]["buyItNowPrice"]["__content__"].to_f
+        bin_price_decimal_string = '%.2f' % bin_price_integer
+        bin_price_string_human = "$#{bin_price_decimal_string}"
+        item["buyItNowHuman"] = "#{bin_price_string_human}"
 
         auction_price_integer = item["sellingStatus"]["currentPrice"]["__content__"].to_f
         auction_price_decimal_string = '%.2f' % auction_price_integer
         auction_price_string_human = "$#{auction_price_decimal_string}"
         item["priceHuman"] = "#{auction_price_string_human}"
+
+        item_end_date = DateTime.parse(item["listingInfo"]["endTime"])
+        item_end_date_human = item_end_date.strftime('%B %e, %Y - %H:%M:%S')
+        item["endDateHuman"] = item_end_date_human
       end
-      return @response
+      return @response_batch
     else
       bin_price_integer = @response["listingInfo"]["buyItNowPrice"]["__content__"].to_f
       bin_price_decimal_string = '%.2f' % bin_price_integer

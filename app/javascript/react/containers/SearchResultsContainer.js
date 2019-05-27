@@ -18,7 +18,7 @@ class SearchResultsContainer extends Component {
       ebayAvg: "",
       ebayAvgDiscount: "",
       ebayEndSoon: [],
-      showActive: false,
+      showActive: true,
     }
   }
 

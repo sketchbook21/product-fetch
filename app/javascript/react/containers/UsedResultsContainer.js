@@ -12,9 +12,11 @@ class UsedResultsContainer extends Component {
 
   render() {
     let products = this.props.data
+    let showActive = this.props.showActive
     let key = 1
     let productsDisplay = products.map(product => {
       let productPrice = product.priceHuman ? product.priceHuman : "N/A"
+      let binPrice = product.buyItNowHuman ? product.buyItNowHuman : "N/A"
       let productTitle = product.title.length > 110 ? `${product.title.substring(0, 110)}...` : product.title
       let endDate = product.endDateHuman
       let productURL = product.viewItemURL
@@ -29,7 +31,6 @@ class UsedResultsContainer extends Component {
       } else if (product.galleryURL) {
         productImage = product.galleryURL
       }
-      let productId = product.itemId
       let bidCount = product.sellingStatus["bidCount"]
       let buyItNow = product.listingInfo["buyItNowAvailable"]
       key += 1
@@ -37,14 +38,15 @@ class UsedResultsContainer extends Component {
         <UsedResultTile
           key={key}
           title={productTitle}
-          listPrice={productPrice}
-          currentPrice=""
+          currentPrice={productPrice}
+          binPrice={binPrice}
           image={productImage}
           url={productURL}
           endDate={endDate}
           reviews={productReviews}
           bidCount={bidCount}
           buyItNow={buyItNow}
+          showActive={showActive}
         />
       )
     })
