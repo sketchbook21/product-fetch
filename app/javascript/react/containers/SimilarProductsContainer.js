@@ -10,7 +10,7 @@ class SimilarProductsContainer extends Component {
   }
 
   render() {
-    let products = this.props.data
+    let products = this.props.similar
     let productsDisplay = products.map(product => {
       let listPrice = product.ItemAttributes["ListPrice"] ? product.ItemAttributes["ListPrice"]["FormattedPrice"] : "N/A"
       let currentPrice = product.OfferSummary["LowestNewPrice"] ? product.OfferSummary["LowestNewPrice"]["FormattedPrice"] : "N/A"

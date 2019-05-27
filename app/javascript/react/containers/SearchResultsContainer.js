@@ -13,10 +13,12 @@ class SearchResultsContainer extends Component {
       amazonDetailData: {},
       amazonSimilarData: [],
       ebayDetailData: {},
+      ebayActive: [],
       ebayCompleted: [],
       ebayAvg: "",
       ebayAvgDiscount: "",
       ebayEndSoon: [],
+      showActive: false,
     }
   }
 
@@ -44,6 +46,7 @@ class SearchResultsContainer extends Component {
         amazonDetailData: body.amazon_detail,
         amazonSimilarData: body.amazon_similar,
         ebayDetailData: body.ebay_detail,
+        ebayActive: body.ebay_active,
         ebayCompleted: body.ebay_completed,
         ebayAvg: body.ebay_avg,
         ebayAvgDiscount: body.ebay_avg_discount,
@@ -51,8 +54,18 @@ class SearchResultsContainer extends Component {
     })
   }
 
+  passShowClick = () => {
+    if (this.showActive === true) {
+      this.setState({ showActive: false })
+    } else{
+      this.setState({ showActive: true })
+    }
+  }
+
   render() {
     console.log(this.state)
+    let showActive = this.state.showActive
+    let ebayData = showActive ? this.state.ebayActive : this.state.ebayCompleted
     return (
       <div>
         <SearchBar 
@@ -68,16 +81,24 @@ class SearchResultsContainer extends Component {
             <NewResultDetailTile data={this.state.amazonDetailData}/>
           </div>
           <div className="small-8 columns right-column">
-            <UsedResultDetailTile data={this.state.ebayDetailData} priceAvg={this.state.ebayAvg} avgDiscount={this.state.ebayAvgDiscount}/>
+            <UsedResultDetailTile 
+              data={this.state.ebayDetailData} 
+              priceAvg={this.state.ebayAvg} 
+              avgDiscount={this.state.ebayAvgDiscount}
+            />
           </div>
         </div>
         <div className="row">
           <div className="small-8 columns left-column">
-            <SimilarProductsContainer data={this.state.amazonSimilarData}/>
+            <SimilarProductsContainer similar={this.state.amazonSimilarData}/>
             <RelatedProductsContainer />
           </div>
           <div className="small-8 columns right-column">
-            <UsedResultsContainer data={this.state.ebayCompleted}/>  
+            <UsedResultsContainer 
+              data={ebayData} 
+              showActive={showActive} 
+              passShowClick={this.passShowClick}
+            />
           </div>
         </div>
       </div>

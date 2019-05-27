@@ -4,7 +4,7 @@ class Ebay
   def initialize
   end
 
-  def fetchCurrent(search_term, sort_order, listing_type, entries_per_page, page_number)
+  def fetchCurrent(search_term, sort_order, entries_per_page, page_number)
     namespace = {
         "xmlns" => "http://www.ebay.com/marketplace/search/v1/services"
       }
@@ -22,8 +22,8 @@ class Ebay
             xml.pageNumber "#{page_number}"
           }
           xml.itemFilter {
-            xml.name "ListingType"
-            xml.value "#{listing_type}"
+            xml.name "Condition"
+            xml.value "Used"
           }
           xml.outputSelector "PictureURLSuperSize"
           xml.outputSelector "PictureURLLarge"
@@ -38,22 +38,22 @@ class Ebay
       :headers => {"X-EBAY-SOA-SECURITY-APPNAME" => "#{ENV["EBAY_CLIENT_ID"]}", "X-EBAY-SOA-OPERATION-NAME" => "findItemsByKeywords"},
       :body => request_body
     })
-    # binding.pry
-
+    
     @response = response["findItemsByKeywordsResponse"]["searchResult"]["item"]
-
+    
+    # binding.pry
 
     if @response.kind_of?(Array)
       @response.each do |item|
-        bin_price_integer = item["listingInfo"]["buyItNowPrice"]["__content__"].to_f
-        bin_price_decimal_string = '%.2f' % bin_price_integer
-        bin_price_string_human = "$#{bin_price_decimal_string}"
-        item["buyItNowHuman"] = "#{bin_price_string_human}"
+        # bin_price_integer = item["listingInfo"]["buyItNowPrice"]["__content__"].to_f
+        # bin_price_decimal_string = '%.2f' % bin_price_integer
+        # bin_price_string_human = "$#{bin_price_decimal_string}"
+        # item["buyItNowHuman"] = "#{bin_price_string_human}"
 
         auction_price_integer = item["sellingStatus"]["currentPrice"]["__content__"].to_f
         auction_price_decimal_string = '%.2f' % auction_price_integer
         auction_price_string_human = "$#{auction_price_decimal_string}"
-        item["auctionHuman"] = "#{auction_price_string_human}"
+        item["priceHuman"] = "#{auction_price_string_human}"
       end
       return @response
     else
@@ -116,10 +116,12 @@ class Ebay
       item_price = item["sellingStatus"]["currentPrice"]["__content__"].to_f
       price_array << item_price
       price_sum += item_price
-
-      # item_price_decimal = item_price.round(2)
       item_price_human = "$#{'%.2f' % item_price}"
       item["priceHuman"] = item_price_human
+
+      item_end_date = DateTime.parse(item["listingInfo"]["endTime"])
+      item_end_date_human = item_end_date.strftime('%B %e, %Y - %H:%M:%S')
+      item["endDateHuman"] = item_end_date_human
     end
 
     price_average = price_sum / @response.length

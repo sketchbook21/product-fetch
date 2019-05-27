@@ -7,16 +7,16 @@ class UsedResultsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
     }
   }
 
   render() {
     let products = this.props.data
+    let key = 1
     let productsDisplay = products.map(product => {
       let productPrice = product.priceHuman ? product.priceHuman : "N/A"
       let productTitle = product.title.length > 110 ? `${product.title.substring(0, 110)}...` : product.title
-      let releaseDate = "N/A"
+      let endDate = product.endDateHuman
       let productURL = product.viewItemURL
       let productReviews = "none"
       let productImage = 'http://www.culturalwellnesscenter.org/wp-content/uploads/2015/11/no-image-available.png'
@@ -31,23 +31,33 @@ class UsedResultsContainer extends Component {
       }
       let productId = product.itemId
       let bidCount = product.sellingStatus["bidCount"]
-      
+      let buyItNow = product.listingInfo["buyItNowAvailable"]
+      key += 1
       return (
         <UsedResultTile
-          key={productId}
+          key={key}
           title={productTitle}
-          price={productPrice}
+          listPrice={productPrice}
+          currentPrice=""
           image={productImage}
           url={productURL}
-          releaseDate={releaseDate}
+          endDate={endDate}
           reviews={productReviews}
           bidCount={bidCount}
+          buyItNow={buyItNow}
         />
       )
     })
     return (
       <div className="result-container">
-        <h5>Other Used Listings</h5>
+        <div className="row">
+          <div className="small-5 columns">
+            <h5>Used Listings</h5>
+          </div>
+          <div className="small-11 columns right s5 w3 listing-tab-cont">
+            <a className="listing-tab">Active</a>|<a className="listing-tab">Completed</a>
+          </div>
+        </div>
         {productsDisplay}
       </div>
     )
