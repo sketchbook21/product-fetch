@@ -10,9 +10,10 @@ class SimilarProductsContainer extends Component {
   }
 
   render() {
-    let products = this.props.data
+    let products = this.props.similar
     let productsDisplay = products.map(product => {
-      let productPrice = product.ItemAttributes["ListPrice"] ? product.ItemAttributes["ListPrice"]["FormattedPrice"] : "N/A"
+      let listPrice = product.ItemAttributes["ListPrice"] ? product.ItemAttributes["ListPrice"]["FormattedPrice"] : "N/A"
+      let currentPrice = product.OfferSummary["LowestNewPrice"] ? product.OfferSummary["LowestNewPrice"]["FormattedPrice"] : "N/A"
       let productTitle = product.ItemAttributes.Title.length > 110 ? `${product.ItemAttributes.Title.substring(0, 110)}...` : product.ItemAttributes.Title
       let releaseDate = product.ItemAttributes.ReleaseDateHuman ? product.ItemAttributes.ReleaseDateHuman : "N/A"
       let productURL = product.DetailPageURL
@@ -22,7 +23,8 @@ class SimilarProductsContainer extends Component {
           <NewResultTile
             key={product.ASIN}
             title={productTitle}
-            price={productPrice}
+            listPrice={listPrice}
+            currentPrice={currentPrice}
             image={productImage}
             url={productURL}
             releaseDate={releaseDate}

@@ -16,13 +16,9 @@ class UsedResultDetailTile extends Component {
         </div>
       )
     } else {
-      // let releaseDate = this.props.data.ItemAttributes.ReleaseDateHuman ? this.props.data.ItemAttributes.ReleaseDateHuman : "N/A"
-      // let productTitle = this.props.data.ItemAttributes.Title.length > 65 ? `${this.props.data.ItemAttributes.Title.substring(0, 65)}...` : this.props.data.ItemAttributes.Title
-      // let price = this.props.data.ItemAttributes.ListPrice ? this.props.data.ItemAttributes.ListPrice.FormattedPrice : this.props.data.OfferSummary.LowestNewPrice.FormattedPrice
-
       let productTitle = this.props.data.title
       let productURL = this.props.data.viewItemURL
-      let productPrice = this.props.data.buyItNowHuman
+      let productPrice = this.props.data.priceHuman
       let priceAvg = this.props.priceAvg ? this.props.priceAvg : "N/A"
       let priceAvgDiscount = this.props.avgDiscount ? this.props.avgDiscount : "N/A"
       let imageURL = 'http://www.culturalwellnesscenter.org/wp-content/uploads/2015/11/no-image-available.png'
@@ -53,7 +49,7 @@ class UsedResultDetailTile extends Component {
               <div className="row detail-price-button center">
                 <div className="small-8 columns center padding-top">
                   <h5 className="w7">
-                    {auctionPrice}
+                    {productPrice}
                   </h5>
                 </div>
                 <div className="small-8 columns center see-on-button padding-top">

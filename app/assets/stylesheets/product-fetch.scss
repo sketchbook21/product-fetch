@@ -10,6 +10,14 @@ $oil: #333333;
   text-align: right;
 }
 
+.left-column {
+  padding-right: 20px;
+}
+
+.right-column {
+  padding-left: 20px
+}
+
 a {
   color: $oil;
 }
@@ -122,13 +130,14 @@ a:hover {
 }
 
 .result-image-tile {
-  height: 100px;
-  object-fit: contain;
+  height: 130px;
+  width: 100%;
+  object-fit: cover;
   border-radius: 5px;
 }
 
 .result-title-height {
-  height: 80px;
+  height: 50px;
   overflow: hidden;
 }
 
@@ -138,6 +147,14 @@ a:hover {
 
 .see-it-button {
   margin: 0;
+}
+
+.listing-tab {
+  padding: 0 10px;
+}
+
+.listing-tab-cont {
+  padding-top: 5px;
 }
 
 .result-tile {
