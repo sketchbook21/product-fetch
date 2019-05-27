@@ -22,10 +22,6 @@ class Ebay
             xml.pageNumber "#{page_number}"
           }
           xml.itemFilter {
-            xml.name "Condition"
-            xml.value "Used"
-          }
-          xml.itemFilter {
             xml.name "ListingType"
             xml.value "#{listing_type}"
           }
@@ -42,8 +38,10 @@ class Ebay
       :headers => {"X-EBAY-SOA-SECURITY-APPNAME" => "#{ENV["EBAY_CLIENT_ID"]}", "X-EBAY-SOA-OPERATION-NAME" => "findItemsByKeywords"},
       :body => request_body
     })
+    # binding.pry
 
     @response = response["findItemsByKeywordsResponse"]["searchResult"]["item"]
+
 
     if @response.kind_of?(Array)
       @response.each do |item|
@@ -81,7 +79,7 @@ class Ebay
         xml.findCompletedItems(namespace) {
           xml.sortOrder "StartTimeNewest"
           xml.paginationInput {
-            xml.entriesPerPage "20"
+            xml.entriesPerPage "15"
             xml.pageNumber "1"
           }
           xml.itemFilter {
@@ -91,6 +89,10 @@ class Ebay
           xml.itemFilter {
             xml.name "SoldItemsOnly"
             xml.value "true"
+          }
+          xml.itemFilter {
+            xml.name "MinBids"
+            xml.value "1"
           }
           xml.outputSelector "PictureURLSuperSize"
           xml.outputSelector "PictureURLLarge"
@@ -114,6 +116,10 @@ class Ebay
       item_price = item["sellingStatus"]["currentPrice"]["__content__"].to_f
       price_array << item_price
       price_sum += item_price
+
+      # item_price_decimal = item_price.round(2)
+      item_price_human = "$#{'%.2f' % item_price}"
+      item["priceHuman"] = item_price_human
     end
 
     price_average = price_sum / @response.length

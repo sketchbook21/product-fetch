@@ -64,20 +64,20 @@ class SearchResultsContainer extends Component {
           <div className="small-16 columns">
             <h4>Top Results</h4>
           </div>
-          <div className="small-8 columns">
+          <div className="small-8 columns left-column">
             <NewResultDetailTile data={this.state.amazonDetailData}/>
           </div>
-          <div className="small-8 columns">
+          <div className="small-8 columns right-column">
             <UsedResultDetailTile data={this.state.ebayDetailData} priceAvg={this.state.ebayAvg} avgDiscount={this.state.ebayAvgDiscount}/>
           </div>
         </div>
         <div className="row">
-          <div className="small-8 columns">
+          <div className="small-8 columns left-column">
             <SimilarProductsContainer data={this.state.amazonSimilarData}/>
             <RelatedProductsContainer />
           </div>
-          <div className="small-8 columns">
-            <UsedResultsContainer />  
+          <div className="small-8 columns right-column">
+            <UsedResultsContainer data={this.state.ebayCompleted}/>  
           </div>
         </div>
       </div>
