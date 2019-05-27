@@ -10,7 +10,12 @@ class Api::V1::SearchController < ApplicationController
     amazon_search = Amazon.new
     amazon_response = amazon_search.fetch(search_term)
     @amazon_response_detail = amazon_response.first
-    amazon_detail_price = @amazon_response_detail["ItemAttributes"]["ListPrice"]["Amount"].to_f / 100 
+    amazon_detail_price = 0
+    if @amazon_response_detail["ItemAttributes"]["ListPrice"]
+      amazon_detail_price = @amazon_response_detail["ItemAttributes"]["ListPrice"]["Amount"].to_f / 100
+    elsif @amazon_response_detail["OfferSummary"]
+      amazon_detail_price = @amazon_response_detail["OfferSummary"]["LowestNewPrice"]["Amount"].to_f / 100
+    end
     
     amazon_response_similar_all = amazon_response.drop(1)
     @amazon_response_similar = amazon_response_similar_all.shift(5)
@@ -19,7 +24,7 @@ class Api::V1::SearchController < ApplicationController
     ebay_response = ebay_search.fetchCurrent(
       search_term, 
       "BestMatch", 
-      16, 
+      32, 
       1
       )
 
@@ -33,11 +38,13 @@ class Api::V1::SearchController < ApplicationController
     @ebay_avg = @ebay_response_completed.first["priceAvgHuman"]
     ebay_avg_decimal = @ebay_response_completed.first["priceAvgDecimal"]
 
-    ebay_avg_discount = ((1 - (ebay_avg_decimal / amazon_detail_price)) * 100).round(0)
-    if ebay_avg_discount <= 1
-      @ebay_avg_discount_human = "N/A"
-    else
-      @ebay_avg_discount_human = "#{ebay_avg_discount}%"
+    ebay_avg_discount = "N/A"
+    ebay_discount_calc = ((1 - (ebay_avg_decimal / amazon_detail_price)) * 100).round(0)
+    if amazon_detail_price != 0
+      if ebay_discount_calc > 1
+        ebay_avg_discount = ebay_discount_calc
+        @ebay_avg_discount_human = "#{ebay_avg_discount}%"
+      end
     end
     
     render json: {

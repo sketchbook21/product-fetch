@@ -18,7 +18,8 @@ class UsedResultDetailTile extends Component {
     } else {
       let productTitle = this.props.data.title
       let productURL = this.props.data.viewItemURL
-      let productPrice = this.props.data.priceHuman
+      let auctionPrice = this.props.data.priceHuman
+      let binPrice = this.props.data.buyItNowHuman
       let priceAvg = this.props.priceAvg ? this.props.priceAvg : "N/A"
       let priceAvgDiscount = this.props.avgDiscount ? this.props.avgDiscount : "N/A"
       let imageURL = 'http://www.culturalwellnesscenter.org/wp-content/uploads/2015/11/no-image-available.png'
@@ -31,7 +32,7 @@ class UsedResultDetailTile extends Component {
       } else if (this.props.data.galleryURL) {
         imageURL = this.props.data.galleryURL
       }
-      let auctionPrice = this.props.data.auctionHuman
+  
   
       return (
         <div className="row">
@@ -49,7 +50,7 @@ class UsedResultDetailTile extends Component {
               <div className="row detail-price-button center">
                 <div className="small-8 columns center padding-top">
                   <h5 className="w7">
-                    {productPrice}
+                    {auctionPrice}
                   </h5>
                 </div>
                 <div className="small-8 columns center see-on-button padding-top">
@@ -64,7 +65,7 @@ class UsedResultDetailTile extends Component {
               Price Data
             </div>
             <div className="s5 w3">
-              Buy It Now Price: {productPrice} <br />
+              Buy It Now Price: {binPrice} <br />
               Avg Used Sale Price: {priceAvg} <br />
               Avg Used Discount From New: {priceAvgDiscount} <br />
             </div>
