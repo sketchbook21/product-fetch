@@ -55,9 +55,9 @@ class SearchResultsContainer extends Component {
   }
 
   passShowClick = () => {
-    if (this.showActive === true) {
+    if (this.state.showActive) {
       this.setState({ showActive: false })
-    } else{
+    } else {
       this.setState({ showActive: true })
     }
   }

@@ -154,7 +154,7 @@ a:hover {
 }
 
 .listing-tab-cont {
-  padding-top: 5px;
+  padding-top: 8px;
 }
 
 .result-tile {
@@ -195,5 +195,9 @@ a:hover {
   height: 2.4rem;
 }
 
+.display-selected {
+  color: $primary-color;
+  font-weight: 500;
+}
 
 
