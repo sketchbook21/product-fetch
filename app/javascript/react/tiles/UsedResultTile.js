@@ -2,7 +2,12 @@ import React from 'react'
 
 const UsedResultTile = (props) => {
   let priceDisplay
-  if (props.buyItNow === "false") {
+  if (props.showActive === false) {
+    priceDisplay =
+      <div className="small-16 columns">
+        <a className="s3 w7" href={props.url} target="_blank"><span className="s5 w3">Sold Price</span><br />{props.currentPrice}</a>
+      </div>
+  } else if (props.buyItNow === "false") { 
     priceDisplay =
       <div className="small-16 columns">
       <a className="s3 w7" href={props.url} target="_blank"><span className="s5 w3">Current Price</span><br />{props.currentPrice}</a>

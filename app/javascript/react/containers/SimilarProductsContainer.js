@@ -34,8 +34,10 @@ class SimilarProductsContainer extends Component {
     })
     return (
       <div className="result-container">
-        <h5>Similar Products</h5>
-        {productsDisplay}
+        <div className="row">
+          <h5>Similar Products</h5>
+          {productsDisplay}
+        </div>
       </div>
     )
   }

@@ -10,10 +10,34 @@ class UsedResultsContainer extends Component {
     }
   }
 
+  handleActiveClick = (event) => {
+    event.preventDefault()
+    if (!this.props.showActive) {
+      this.props.passShowClick()
+    }
+  }
+
+  handleCompletedClick = (event) => {
+    event.preventDefault()
+    if (this.props.showActive) {
+      this.props.passShowClick()
+    }
+  }
+
   render() {
     let products = this.props.data
     let showActive = this.props.showActive
     let key = 1
+    let activeSelected = ""
+    let completedSelected = ""
+    if (this.props.showActive) {
+      activeSelected = "display-selected"
+      completedSelected = ""
+    } else {
+      activeSelected = ""
+      completedSelected = "display-selected"
+    }
+
     let productsDisplay = products.map(product => {
       let productPrice = product.priceHuman ? product.priceHuman : "N/A"
       let binPrice = product.buyItNowHuman ? product.buyItNowHuman : "N/A"
@@ -56,8 +80,8 @@ class UsedResultsContainer extends Component {
           <div className="small-5 columns">
             <h5>Used Listings</h5>
           </div>
-          <div className="small-11 columns right s5 w3 listing-tab-cont">
-            <a className="listing-tab">Active</a>|<a className="listing-tab">Completed</a>
+          <div className="small-11 columns right s4 w3 listing-tab-cont">
+            <a className={`listing-tab ${activeSelected}`} onClick={this.handleActiveClick}>Active</a>|<a className={`listing-tab ${completedSelected}`} onClick={this.handleCompletedClick}>Completed</a>
           </div>
         </div>
         {productsDisplay}
