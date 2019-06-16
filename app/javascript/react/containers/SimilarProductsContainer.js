@@ -5,21 +5,23 @@ class SimilarProductsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      
     }
   }
 
   render() {
-    let products = this.props.similar
-    let productsDisplay = products.map(product => {
-      let listPrice = product.ItemAttributes["ListPrice"] ? product.ItemAttributes["ListPrice"]["FormattedPrice"] : "N/A"
-      let currentPrice = product.OfferSummary["LowestNewPrice"] ? product.OfferSummary["LowestNewPrice"]["FormattedPrice"] : "N/A"
-      let productTitle = product.ItemAttributes.Title.length > 110 ? `${product.ItemAttributes.Title.substring(0, 110)}...` : product.ItemAttributes.Title
-      let releaseDate = product.ItemAttributes.ReleaseDateHuman ? product.ItemAttributes.ReleaseDateHuman : "N/A"
-      let productURL = product.DetailPageURL
-      let productReviews = product.CustomerReviews.IFrameURL
-      let productImage = product.LargeImage.URL
-      return(
+
+    let products = this.props.data ? this.props.data : null
+    if (products) {
+      let productsDisplay = products.map(product => {
+        let listPrice = product.ItemAttributes["ListPrice"] ? product.ItemAttributes["ListPrice"]["FormattedPrice"] : "N/A"
+        let currentPrice = product.OfferSummary["LowestNewPrice"] ? product.OfferSummary["LowestNewPrice"]["FormattedPrice"] : "N/A"
+        let productTitle = product.ItemAttributes.Title.length > 110 ? `${product.ItemAttributes.Title.substring(0, 110)}...` : product.ItemAttributes.Title
+        let releaseDate = product.ItemAttributes.ReleaseDateHuman ? product.ItemAttributes.ReleaseDateHuman : "N/A"
+        let productURL = product.DetailPageURL
+        let productReviews = product.CustomerReviews.IFrameURL
+        let productImage = product.LargeImage.URL
+        return (
           <NewResultTile
             key={product.ASIN}
             title={productTitle}
@@ -30,16 +32,24 @@ class SimilarProductsContainer extends Component {
             releaseDate={releaseDate}
             reviews={productReviews}
           />
-      )
-    })
-    return (
-      <div className="result-container">
-        <div className="row">
-          <h5>Similar Products</h5>
-          {productsDisplay}
+        )
+      })
+      let loading = this.state.loading ? "loader" : ""
+      return (
+        <div className="result-container">
+          <div className="row">
+            <h5>Similar Products</h5>
+            {productsDisplay}
+          </div>
         </div>
-      </div>
-    )
+      )
+    } else {
+      return (
+        <div>
+          No Data Yet
+        </div>
+      )
+    }
   }
 }
 
