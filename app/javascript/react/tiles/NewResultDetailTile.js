@@ -9,13 +9,8 @@ class NewResultDetailTile extends Component {
   }
 
   render() {
-    if (!this.props.data.ItemAttributes) {
-      return (
-        <div>
-          No Data Yet
-        </div>
-      )
-    } else {
+    let itemAttributes = this.props.data ? this.props.data.ItemAttributes : null
+    if (itemAttributes) {
       let releaseDate = this.props.data.ItemAttributes.ReleaseDateHuman ? this.props.data.ItemAttributes.ReleaseDateHuman : "N/A"
       let productTitle = this.props.data.ItemAttributes.Title.length > 65 ? `${this.props.data.ItemAttributes.Title.substring(0, 65)}...` : this.props.data.ItemAttributes.Title
       let price = this.props.data.ItemAttributes.ListPrice ? this.props.data.ItemAttributes.ListPrice.FormattedPrice : this.props.data.OfferSummary.LowestNewPrice.FormattedPrice
@@ -55,6 +50,12 @@ class NewResultDetailTile extends Component {
               <a href={this.props.data.CustomerReviews.IFrameURL} className="w5 primary" target="_blank">See Product Reviews</a>
             </div>
           </div>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          No Data Yet
         </div>
       )
     }

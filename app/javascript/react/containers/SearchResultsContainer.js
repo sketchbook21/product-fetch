@@ -5,54 +5,17 @@ import UsedResultDetailTile from '../tiles/UsedResultDetailTile'
 import SimilarProductsContainer from './SimilarProductsContainer'
 import UsedResultsContainer from './UsedResultsContainer'
 import RelatedProductsContainer from './RelatedProductsContainer';
+import Loader from '../components/Loader'
 
 class SearchResultsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      amazonDetailData: {},
-      amazonSimilarData: [],
-      ebayDetailData: {},
-      ebayActive: [],
-      ebayCompleted: [],
-      ebayAvg: "",
-      ebayAvgDiscount: "",
-      ebayEndSoon: [],
       showActive: true,
     }
   }
 
-  fetchResults = (payload) => {
-    fetch(`/api/v1/search/`, {
-      method: 'POST',
-      body: JSON.stringify(payload),
-      credentials: 'same-origin',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        return response
-      } else {
-        let errorMessage = `${response.status} (${response.statusText})`, error = new Error(errorMessage)
-        throw (error)
-      }
-    })
-    .then(response => response.json())
-    .then(body => {
-      this.setState({
-        amazonDetailData: body.amazon_detail,
-        amazonSimilarData: body.amazon_similar,
-        ebayDetailData: body.ebay_detail,
-        ebayActive: body.ebay_active,
-        ebayCompleted: body.ebay_completed,
-        ebayAvg: body.ebay_avg,
-        ebayAvgDiscount: body.ebay_avg_discount,
-      })
-    })
-  }
+
 
   passShowClick = () => {
     if (this.state.showActive) {
@@ -63,34 +26,28 @@ class SearchResultsContainer extends Component {
   }
 
   render() {
-    console.log(this.state)
     let showActive = this.state.showActive
-    let ebayData = showActive ? this.state.ebayActive : this.state.ebayCompleted
+    let ebayData = showActive ? this.props.ebayActive : this.props.ebayCompleted
     return (
       <div>
-        <SearchBar 
-          fetchResults={this.fetchResults}
-          handleChange={this.handleChange}
-          value={this.state.search}
-        />
         <div className="row">
           <div className="small-16 columns">
             <h4>Top Results</h4>
           </div>
           <div className="small-8 columns left-column">
-            <NewResultDetailTile data={this.state.amazonDetailData}/>
+            <NewResultDetailTile data={this.props.amazonDetailData}/>
           </div>
           <div className="small-8 columns right-column">
             <UsedResultDetailTile 
-              data={this.state.ebayDetailData} 
-              priceAvg={this.state.ebayAvg} 
-              avgDiscount={this.state.ebayAvgDiscount}
+              data={this.props.ebayDetailData} 
+              priceAvg={this.props.ebayAvg} 
+              avgDiscount={this.props.ebayAvgDiscount}
             />
           </div>
         </div>
         <div className="row">
           <div className="small-8 columns left-column">
-            <SimilarProductsContainer similar={this.state.amazonSimilarData}/>
+            <SimilarProductsContainer data={this.props.amazonSimilarData}/>
             <RelatedProductsContainer />
           </div>
           <div className="small-8 columns right-column">

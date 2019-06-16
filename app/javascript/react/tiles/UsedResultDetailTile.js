@@ -9,13 +9,8 @@ class UsedResultDetailTile extends Component {
   }
 
   render() {
-    if (!this.props.data.title) {
-      return (
-        <div>
-          No Data Yet
-        </div>
-      )
-    } else {
+    let data = this.props.data ? this.props.data : null
+    if (data) {
       let productTitle = this.props.data.title
       let productURL = this.props.data.viewItemURL
       let auctionPrice = this.props.data.priceHuman
@@ -70,6 +65,12 @@ class UsedResultDetailTile extends Component {
               Avg Used Discount From New: {priceAvgDiscount} <br />
             </div>
           </div>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          No Data Yet
         </div>
       )
     }
