@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {animateScroll as scroll} from 'react-scroll'
 import NewResultDetailTile from '../tiles/NewResultDetailTile'
 import UsedResultDetailTile from '../tiles/UsedResultDetailTile'
 import SimilarProductsContainer from './SimilarProductsContainer'
@@ -22,7 +23,12 @@ class SearchResultsContainer extends Component {
     }
   }
 
+  scrollTop = () => {
+    scroll.scrollToTop()
+  }
+
   render() {
+    console.log(document.body.scrollTop)
     let showActive = this.state.showActive
     let ebayData = showActive ? this.props.ebayActive : this.props.ebayCompleted
     return (
@@ -52,6 +58,9 @@ class SearchResultsContainer extends Component {
               showActive={showActive} 
               passShowClick={this.passShowClick}
             />
+          </div>
+          <div className="small-16 columns" id="scroll-top" onClick={this.scrollTop}>
+            Back To Top
           </div>
         </div>
       </div>
