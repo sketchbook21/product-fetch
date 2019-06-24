@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {animateScroll as scroll} from 'react-scroll'
 import NewResultDetailTile from '../tiles/NewResultDetailTile'
 import UsedResultDetailTile from '../tiles/UsedResultDetailTile'
 import SimilarProductsContainer from './SimilarProductsContainer'
@@ -12,14 +13,16 @@ class SearchResultsContainer extends Component {
     }
   }
 
-
-
   passShowClick = () => {
     if (this.state.showActive) {
       this.setState({ showActive: false })
     } else {
       this.setState({ showActive: true })
     }
+  }
+
+  scrollTop = () => {
+    scroll.scrollToTop()
   }
 
   render() {
@@ -53,6 +56,10 @@ class SearchResultsContainer extends Component {
               passShowClick={this.passShowClick}
             />
           </div>
+          <div className="small-16 columns" id="scroll-top" onClick={this.scrollTop}>
+            Back To Top
+          </div>
+          <button>Hello Button</button>
         </div>
       </div>
     )
