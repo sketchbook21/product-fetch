@@ -59,7 +59,6 @@ class SearchResultsContainer extends Component {
           <div className="small-16 columns" id="scroll-top" onClick={this.scrollTop}>
             Back To Top
           </div>
-          <button>Hello Button</button>
         </div>
       </div>
     )
