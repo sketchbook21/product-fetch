@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {animateScroll as scroll} from 'react-scroll'
 import NewResultDetailTile from '../tiles/NewResultDetailTile'
 import UsedResultDetailTile from '../tiles/UsedResultDetailTile'
 import SimilarProductsContainer from './SimilarProductsContainer'
