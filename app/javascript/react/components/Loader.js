@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Loader = (props) => {
-  debugger
   return (
     <div className="center primary">
       <div className="s2 w3 center" style={{margin: "50px 0", fontStyle: "italic"}}>
