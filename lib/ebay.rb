@@ -41,8 +41,6 @@ class Ebay
     
     response_array = response["findItemsByKeywordsResponse"]["searchResult"]["item"]
     
-    # binding.pry
-
     @response_active = []
 
     if response_array
@@ -53,10 +51,8 @@ class Ebay
       end
     end
 
-    # binding.pry
-
-    if @response_active.length < 16
-      search_number = 16 - @response_active.length
+    if @response_active.length < 20
+      search_number = 20 - @response_active.length
       
       namespace_two = {
         "xmlns" => "http://www.ebay.com/marketplace/search/v1/services"
@@ -100,7 +96,7 @@ class Ebay
 
       @response_active
     else
-      @response_active = @response_active[0 ... 16]
+      @response_active = @response_active[0 ... 20]
     end
 
     @response_active.each do |item|
@@ -132,7 +128,7 @@ class Ebay
         xml.findCompletedItems(namespace) {
           xml.sortOrder "StartTimeNewest"
           xml.paginationInput {
-            xml.entriesPerPage "15"
+            xml.entriesPerPage "50"
             xml.pageNumber "1"
           }
           xml.itemFilter {
