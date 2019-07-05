@@ -5,12 +5,12 @@ class Api::V1::SearchController < ApplicationController
   protect_from_forgery unless: -> { request.format.json? }
   
   def create
-    search_term = search_params[:search]
+    @search_term = search_params[:search]
 
     # time_one = Time.new
 
     amazon_search = Amazon.new
-    amazon_response = amazon_search.fetch(search_term)
+    amazon_response = amazon_search.fetch(@search_term)
 
     @amazon_response_detail = {}
     if amazon_response.length === 0
@@ -39,7 +39,7 @@ class Api::V1::SearchController < ApplicationController
     
     ebay_search= Ebay.new
     ebay_response = ebay_search.fetchCurrent(
-      search_term, 
+      @search_term, 
       "BestMatch", 
       50, 
       1
@@ -50,13 +50,13 @@ class Api::V1::SearchController < ApplicationController
     @ebay_response_active.pop(@ebay_response_active.length - @amazon_response_similar.length)
 
     ebay_completed_search = Ebay.new
-    @ebay_response_completed = ebay_completed_search.fetchCompleted(search_term)
+    @ebay_response_completed = ebay_completed_search.fetchCompleted(@search_term)
     @ebay_response_completed.pop(@ebay_response_completed.length - @amazon_response_similar.length)
     @ebay_avg = @ebay_response_completed.first["priceAvgHuman"]
     ebay_avg_decimal = @ebay_response_completed.first["priceAvgDecimal"]
     
     render json: {
-      search: search_term, 
+      search_term: @search_term, 
       amazon_detail: @amazon_response_detail, 
       amazon_similar: @amazon_response_similar,
       ebay_detail: @ebay_response_detail,

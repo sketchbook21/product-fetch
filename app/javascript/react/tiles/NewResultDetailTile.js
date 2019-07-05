@@ -16,7 +16,7 @@ class NewResultDetailTile extends Component {
       let price = this.props.data.ItemAttributes.ListPrice ? this.props.data.ItemAttributes.ListPrice.FormattedPrice : this.props.data.OfferSummary.LowestNewPrice.FormattedPrice
       return (
         <div className="row">
-          <div className="small-8 columns center">
+          <div className="small-8 columns">
             <a href={this.props.data.DetailPageURL} target="_blank">
               <img src={this.props.data.LargeImage.URL} className="detail-image-tile" />
             </a>

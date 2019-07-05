@@ -7,6 +7,7 @@ class HomeContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      searchTerm: '',
       amazonDetailData: {},
       amazonSimilarData: [],
       ebayDetailData: {},
@@ -45,6 +46,7 @@ class HomeContainer extends Component {
       .then(response => response.json())
       .then(body => {
         this.setState({
+          searchTerm: body.search_term,
           amazonDetailData: body.amazon_detail,
           amazonSimilarData: body.amazon_similar,
           ebayDetailData: body.ebay_detail,
@@ -66,6 +68,7 @@ class HomeContainer extends Component {
     } else {
       loaderOrSearchResults = 
       <SearchResultsContainer 
+        searchTerm={this.state.searchTerm}
         amazonDetailData={this.state.amazonDetailData}
         amazonSimilarData={this.state.amazonSimilarData}
         ebayDetailData={this.state.ebayDetailData}

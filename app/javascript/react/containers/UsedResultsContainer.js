@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import SubNav from '../components/SubNav'
+import UsedResultDetailTile from '../tiles/UsedResultDetailTile'
 import UsedResultTile from '../tiles/UsedResultTile'
+import NoResultsTile from '../tiles/NoResultsTile'
 
 
 class UsedResultsContainer extends Component {
@@ -25,7 +26,8 @@ class UsedResultsContainer extends Component {
   }
 
   render() {
-    let products = this.props.data ? this.props.data : null
+    let searchTerm = this.props.searchTerm
+    let products = this.props.dataList.length > 0 ? this.props.dataList : null
     if (products) {
       let showActive = this.props.showActive
       let key = 1
@@ -78,6 +80,9 @@ class UsedResultsContainer extends Component {
       return (
         <div className="result-container">
           <div className="row">
+            <div className="small-16 columns detail-item-tile">
+              <UsedResultDetailTile data={this.props.dataDetail} />
+            </div>
             <div className="small-5 columns">
               <h5>Used Listings</h5>
             </div>
@@ -90,9 +95,7 @@ class UsedResultsContainer extends Component {
       )
     } else {
       return (
-        <div>
-          No Data Yet
-        </div>
+        <NoResultsTile productCondition={'used'} searchTerm={searchTerm}/>
       )
     }    
   }

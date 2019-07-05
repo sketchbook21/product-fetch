@@ -31,7 +31,7 @@ class UsedResultDetailTile extends Component {
   
       return (
         <div className="row">
-          <div className="small-8 columns center">
+          <div className="small-8 columns">
             <a href={productURL} target="_blank">
               <img src={imageURL} className="detail-image-tile" />
             </a>

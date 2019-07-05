@@ -1,5 +1,6 @@
 $primary-color: #2BBBAC;
 $aluminum: #808080;
+$light-gray: #ececec;
 $oil: #333333;
 
 .center {
@@ -10,12 +11,8 @@ $oil: #333333;
   text-align: right;
 }
 
-.left-column {
-  padding-right: 20px;
-}
-
-.right-column {
-  padding-left: 20px
+.detail-item-tile {
+  padding-bottom: 30px;
 }
 
 a {
@@ -160,7 +157,7 @@ a:hover {
 .result-tile {
   overflow: hidden;
   padding: 15px 0;
-  border-bottom: 1px solid #ececec;
+  border-bottom: 1px solid $light-gray;
 }
 
 // .underline {
@@ -232,4 +229,14 @@ a:hover {
   color: white;
   background-color: $primary-color;
   border-color: $primary-color;
+}
+
+.no-results {
+  border: 2px dashed $light-gray;
+  border-radius: 5px;
+  min-height: 500px;
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
