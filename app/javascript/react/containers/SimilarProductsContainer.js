@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import NewResultDetailTile from '../tiles/NewResultDetailTile'
 import NewResultTile from '../tiles/NewResultTile'
+import NoResultsTile from '../tiles/NoResultsTile'
 
 class SimilarProductsContainer extends Component {
   constructor(props) {
@@ -10,8 +12,8 @@ class SimilarProductsContainer extends Component {
   }
 
   render() {
-
-    let products = this.props.data ? this.props.data : null
+    let searchTerm = this.props.searchTerm
+    let products = this.props.dataList.length > 0 ? this.props.dataList : null
     if (products) {
       let key = 0
       let productsDisplay = products.map(product => {
@@ -39,6 +41,9 @@ class SimilarProductsContainer extends Component {
       return (
         <div className="result-container">
           <div className="row">
+            <div className="small-16 columns detail-item-tile">
+              <NewResultDetailTile data={this.props.dataDetail} />
+            </div>
             <h5>Similar Products</h5>
             {productsDisplay}
           </div>
@@ -46,9 +51,7 @@ class SimilarProductsContainer extends Component {
       )
     } else {
       return (
-        <div>
-          No Data Yet
-        </div>
+        <NoResultsTile productCondition={'new'} searchTerm={searchTerm}/> 
       )
     }
   }
