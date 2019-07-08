@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SearchResultsContainer from './SearchResultsContainer';
 import Loader from '../components/Loader'
 import SearchBar from '../components/SearchBar'
+import Footer from '../components/Footer'
 
 class HomeContainer extends Component {
   constructor(props) {
@@ -58,7 +59,6 @@ class HomeContainer extends Component {
         })
       })
   }
-  
 
   render() {
     console.log(this.state)
@@ -89,6 +89,7 @@ class HomeContainer extends Component {
           value={this.state.search}
         />
         {loaderOrSearchResults}
+        <Footer/>
       </div>
     )
   }
