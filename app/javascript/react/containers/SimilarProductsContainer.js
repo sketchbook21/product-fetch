@@ -44,9 +44,11 @@ class SimilarProductsContainer extends Component {
             <div className="small-16 columns detail-item-tile">
               <NewResultDetailTile data={this.props.dataDetail} />
             </div>
-            <h5>Similar Products</h5>
-            {productsDisplay}
+            <div className="small-16 columns"> 
+              <h5>Similar Products</h5>
+            </div>
           </div>
+          {productsDisplay}
         </div>
       )
     } else {
