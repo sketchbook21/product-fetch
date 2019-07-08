@@ -46,8 +46,10 @@ class SearchResultsContainer extends Component {
               passShowClick={this.passShowClick}
             />
           </div>
-          <div className="small-16 columns" id="scroll-top" onClick={this.scrollTop}>
-            Back To Top
+          <div style={{ padding: '0 10px' }}>
+            <div className="small-16 columns" id="scroll-top" onClick={this.scrollTop}>
+              Back To Top
+            </div>
           </div>
         </div>
       </div>
