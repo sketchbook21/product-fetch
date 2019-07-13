@@ -1,60 +1,83 @@
-import React, { Component } from 'react'
-import {animateScroll as scroll} from 'react-scroll'
-import NewResultDetailTile from '../tiles/NewResultDetailTile'
-import UsedResultDetailTile from '../tiles/UsedResultDetailTile'
-import SimilarProductsContainer from './SimilarProductsContainer'
-import UsedResultsContainer from './UsedResultsContainer'
-
+import React, { Component } from "react";
+import { animateScroll as scroll } from "react-scroll";
+import NewResultDetailTile from "../tiles/NewResultDetailTile";
+import UsedResultDetailTile from "../tiles/UsedResultDetailTile";
+import NewProductsContainer from "./NewProductsContainer";
+import UsedResultsContainer from "./UsedResultsContainer";
 
 class SearchResultsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showActive: true,
-    }
+      showActive: true
+    };
   }
 
   passShowClick = () => {
     if (this.state.showActive) {
-      this.setState({ showActive: false })
+      this.setState({ showActive: false });
     } else {
-      this.setState({ showActive: true })
+      this.setState({ showActive: true });
     }
-  }
+  };
 
   scrollTop = () => {
-    scroll.scrollToTop()
-  }
+    scroll.scrollToTop();
+  };
 
   render() {
-    let showActive = this.state.showActive
-    let ebayList = showActive ? this.props.ebayActive : this.props.ebayCompleted
+    const {
+      amazonFailed,
+      ebayFailed,
+      searchTerm,
+      amazonDetailData,
+      amazonSimilarData,
+      ebayDetailData,
+      ebayActive,
+      ebayCompleted,
+      ebayAvg,
+      ebayAvgDiscount,
+      showActive
+    } = this.props;
+
+    let ebayList = showActive ? ebayActive : ebayCompleted;
+
     return (
       <div>
         <div className="row">
           <div className="small-8 columns">
-            <SimilarProductsContainer dataDetail={this.props.amazonDetailData} dataList={this.props.amazonSimilarData} searchTerm={this.props.searchTerm}/>
+            <NewProductsContainer
+              amazonFailed={amazonFailed}
+              searchTerm={searchTerm}
+              dataDetail={amazonDetailData}
+              dataList={amazonSimilarData}
+            />
           </div>
           <div className="small-8 columns">
-            <UsedResultsContainer 
-              dataDetail={this.props.ebayDetailData} 
-              priceAvg={this.props.ebayAvg} 
-              avgDiscount={this.props.ebayAvgDiscount}
-              dataList={ebayList} 
+            <UsedResultsContainer
+              ebayFailed={ebayFailed}
+              dataDetail={ebayDetailData}
+              priceAvg={ebayAvg}
+              avgDiscount={ebayAvgDiscount}
+              dataList={ebayList}
               searchTerm={this.props.searchTerm}
-              showActive={showActive} 
+              showActive={showActive}
               passShowClick={this.passShowClick}
             />
           </div>
-          <div style={{ padding: '0 10px' }}>
-            <div className="small-16 columns" id="scroll-top" onClick={this.scrollTop}>
+          <div style={{ padding: "0 10px" }}>
+            <div
+              className="small-16 columns"
+              id="scroll-top"
+              onClick={this.scrollTop}
+            >
               Back To Top
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default SearchResultsContainer
+export default SearchResultsContainer;

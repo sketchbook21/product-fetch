@@ -39,8 +39,8 @@ class Ebay
       :body => request_body
     })
     
-    response_array = response["findItemsByKeywordsResponse"]["searchResult"]["item"]
-    
+    response_array = response["findItemsByKeywordsResponse"]["searchResult"]["item"] ? response["findItemsByKeywordsResponse"]["searchResult"]["item"] : nil
+
     @response_active = []
 
     if response_array
@@ -49,74 +49,76 @@ class Ebay
           @response_active << item
         end
       end
-    end
 
-    if @response_active.length < 20
-      search_number = 20 - @response_active.length
-      
-      namespace_two = {
-        "xmlns" => "http://www.ebay.com/marketplace/search/v1/services"
-      }
-      
-      builder_two = Nokogiri::XML::Builder.new do |xml|
-        xml.findItemsByKeywordsRequest(namespace) {
-          xml.affiliate {
-            xml.networkId "9"
-            xml.trackingId "#{ENV["EBAY_CAMPAIGN_ID"]}"
-            xml.customId "k-man"
-          }
-          xml.sortOrder "#{sort_order}"
-          xml.paginationInput {
-            xml.entriesPerPage "#{search_number}"
-            xml.pageNumber "1"
-          }
-          xml.itemFilter {
-            xml.name "Condition"
-            xml.value "Used"
-          }
-          xml.outputSelector "PictureURLSuperSize"
-          xml.outputSelector "PictureURLLarge"
-          xml.outputSelector "GalleryPlusPictureURL"
-          xml.keywords "#{search_term}"
+      if @response_active.length < 20
+        search_number = 20 - @response_active.length
+        
+        namespace_two = {
+          "xmlns" => "http://www.ebay.com/marketplace/search/v1/services"
         }
+        
+        builder_two = Nokogiri::XML::Builder.new do |xml|
+          xml.findItemsByKeywordsRequest(namespace) {
+            xml.affiliate {
+              xml.networkId "9"
+              xml.trackingId "#{ENV["EBAY_CAMPAIGN_ID"]}"
+              xml.customId "k-man"
+            }
+            xml.sortOrder "#{sort_order}"
+            xml.paginationInput {
+              xml.entriesPerPage "#{search_number}"
+              xml.pageNumber "1"
+            }
+            xml.itemFilter {
+              xml.name "Condition"
+              xml.value "Used"
+            }
+            xml.outputSelector "PictureURLSuperSize"
+            xml.outputSelector "PictureURLLarge"
+            xml.outputSelector "GalleryPlusPictureURL"
+            xml.keywords "#{search_term}"
+          }
+        end
+        request_body_two = builder_two.to_xml
+  
+        url_two = "https://svcs.ebay.com/services/search/FindingService/v1"
+        response_two = HTTParty.post(url, {
+          :headers => {"X-EBAY-SOA-SECURITY-APPNAME" => "#{ENV["EBAY_CLIENT_ID"]}", "X-EBAY-SOA-OPERATION-NAME" => "findItemsByKeywords"},
+          :body => request_body_two
+        })
+        
+        response_array_two = response_two["findItemsByKeywordsResponse"]["searchResult"]["item"]
+  
+        response_array_two.each do |item|
+          @response_active << item
+        end
+  
+        @response_active
+      else
+        @response_active = @response_active[0 ... 20]
       end
-      request_body_two = builder_two.to_xml
-
-      url_two = "https://svcs.ebay.com/services/search/FindingService/v1"
-      response_two = HTTParty.post(url, {
-        :headers => {"X-EBAY-SOA-SECURITY-APPNAME" => "#{ENV["EBAY_CLIENT_ID"]}", "X-EBAY-SOA-OPERATION-NAME" => "findItemsByKeywords"},
-        :body => request_body_two
-      })
-      
-      response_array_two = response_two["findItemsByKeywordsResponse"]["searchResult"]["item"]
-
-      response_array_two.each do |item|
-        @response_active << item
+  
+      @response_active.each do |item|
+        if item["listingInfo"]["buyItNowPrice"]
+          bin_price_integer = item["listingInfo"]["buyItNowPrice"]["__content__"].to_f
+          bin_price_decimal_string = '%.2f' % bin_price_integer
+          bin_price_string_human = "$#{bin_price_decimal_string}"
+          item["buyItNowHuman"] = "#{bin_price_string_human}"
+        end
+  
+        auction_price_integer = item["sellingStatus"]["currentPrice"]["__content__"].to_f
+        auction_price_decimal_string = '%.2f' % auction_price_integer
+        auction_price_string_human = "$#{auction_price_decimal_string}"
+        item["priceHuman"] = "#{auction_price_string_human}"
+  
+        item_end_date = DateTime.parse(item["listingInfo"]["endTime"])
+        item_end_date_human = item_end_date.strftime('%B %e, %Y - %H:%M:%S')
+        item["endDateHuman"] = item_end_date_human
       end
-
-      @response_active
+      return @response_active
     else
-      @response_active = @response_active[0 ... 20]
+      return response_array
     end
-
-    @response_active.each do |item|
-      if item["listingInfo"]["buyItNowPrice"]
-        bin_price_integer = item["listingInfo"]["buyItNowPrice"]["__content__"].to_f
-        bin_price_decimal_string = '%.2f' % bin_price_integer
-        bin_price_string_human = "$#{bin_price_decimal_string}"
-        item["buyItNowHuman"] = "#{bin_price_string_human}"
-      end
-
-      auction_price_integer = item["sellingStatus"]["currentPrice"]["__content__"].to_f
-      auction_price_decimal_string = '%.2f' % auction_price_integer
-      auction_price_string_human = "$#{auction_price_decimal_string}"
-      item["priceHuman"] = "#{auction_price_string_human}"
-
-      item_end_date = DateTime.parse(item["listingInfo"]["endTime"])
-      item_end_date_human = item_end_date.strftime('%B %e, %Y - %H:%M:%S')
-      item["endDateHuman"] = item_end_date_human
-    end
-    return @response_active
   end
 
   def fetchCompleted(search_term)
