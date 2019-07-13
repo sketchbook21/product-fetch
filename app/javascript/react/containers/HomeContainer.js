@@ -1,14 +1,16 @@
-import React, { Component } from 'react'
-import SearchResultsContainer from './SearchResultsContainer';
-import Loader from '../components/Loader'
-import SearchBar from '../components/SearchBar'
-import Footer from '../components/Footer'
+import React, { Component } from "react";
+import SearchResultsContainer from "./SearchResultsContainer";
+import Loader from "../components/Loader";
+import SearchBar from "../components/SearchBar";
+import Footer from "../components/Footer";
 
 class HomeContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: '',
+      amazonFailed: false,
+      ebayFailed: false,
+      searchTerm: "",
       amazonDetailData: {},
       amazonSimilarData: [],
       ebayDetailData: {},
@@ -16,37 +18,39 @@ class HomeContainer extends Component {
       ebayCompleted: [],
       ebayAvg: "",
       ebayAvgDiscount: "",
-      ebayEndSoon: [],
-      loading: false,
-    }
+      loading: false
+    };
   }
 
   isLoading = () => {
-    this.setState({ loading: true })
-  }
+    this.setState({ loading: true });
+  };
 
-  fetchResults = (payload) => {
-    this.isLoading()
+  fetchResults = payload => {
+    this.isLoading();
     fetch(`/api/v1/search/`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(payload),
-      credentials: 'same-origin',
+      credentials: "same-origin",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       }
     })
       .then(response => {
         if (response.ok) {
-          return response
+          return response;
         } else {
-          let errorMessage = `${response.status} (${response.statusText})`, error = new Error(errorMessage)
-          throw (error)
+          let errorMessage = `${response.status} (${response.statusText})`,
+            error = new Error(errorMessage);
+          throw error;
         }
       })
       .then(response => response.json())
       .then(body => {
         this.setState({
+          amazonFailed: body.amazon_failed,
+          ebayFailed: body.ebay_failed,
           searchTerm: body.search_term,
           amazonDetailData: body.amazon_detail,
           amazonSimilarData: body.amazon_similar,
@@ -55,33 +59,34 @@ class HomeContainer extends Component {
           ebayCompleted: body.ebay_completed,
           ebayAvg: body.ebay_avg,
           ebayAvgDiscount: body.ebay_avg_discount,
-          loading: false,
-        })
-      })
-  }
+          loading: false
+        });
+      });
+  };
 
   render() {
-    console.log(this.state)
-    let loaderOrSearchResults
+    console.log(this.state);
+    let loaderOrSearchResults;
     if (this.state.loading) {
-      loaderOrSearchResults = <Loader /> 
+      loaderOrSearchResults = <Loader />;
     } else {
-      loaderOrSearchResults = 
-      <SearchResultsContainer 
-        searchTerm={this.state.searchTerm}
-        amazonDetailData={this.state.amazonDetailData}
-        amazonSimilarData={this.state.amazonSimilarData}
-        ebayDetailData={this.state.ebayDetailData}
-        ebayActive={this.state.ebayActive}
-        ebayCompleted={this.state.ebayCompleted}
-        ebayAvg={this.state.ebayAvg}
-        ebayAvgDiscount={this.state.ebayAvgDiscount}
-        ebayEndSoon={this.state.ebayEndSoon}
-        showActive={this.state.showActive}
-        loading={this.state.loading}
-      />
+      loaderOrSearchResults = (
+        <SearchResultsContainer
+          amazonFailed={this.state.amazonFailed}
+          ebayFailed={this.state.ebayFailed}
+          searchTerm={this.state.searchTerm}
+          amazonDetailData={this.state.amazonDetailData}
+          amazonSimilarData={this.state.amazonSimilarData}
+          ebayDetailData={this.state.ebayDetailData}
+          ebayActive={this.state.ebayActive}
+          ebayCompleted={this.state.ebayCompleted}
+          ebayAvg={this.state.ebayAvg}
+          ebayAvgDiscount={this.state.ebayAvgDiscount}
+          showActive={this.state.showActive}
+        />
+      );
     }
-    return(
+    return (
       <div>
         <SearchBar
           fetchResults={this.fetchResults}
@@ -89,9 +94,9 @@ class HomeContainer extends Component {
           value={this.state.search}
         />
         {loaderOrSearchResults}
-        <Footer/>
+        <Footer />
       </div>
-    )
+    );
   }
 }
 

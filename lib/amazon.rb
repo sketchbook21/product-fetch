@@ -45,11 +45,9 @@ class Amazon
     response_raw = HTTParty.get(request_url)
 
     
-    response = response_raw["ItemSearchErrorResponse"] ? [] : response_raw["ItemSearchResponse"]["Items"]["Item"]
+    response = response_raw["ItemSearchResponse"]["Items"]["Item"] ?response_raw["ItemSearchResponse"]["Items"]["Item"] : nil
     
-    # binding.pry
-    
-    if response.length > 0
+    if response
       response.each do |item|
         if item["ItemAttributes"]["ReleaseDate"]
           release_date = Date.parse(item["ItemAttributes"]["ReleaseDate"])
