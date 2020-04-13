@@ -3,3 +3,5 @@
 # productfetch
 Product search tool that utilizes the Amazon Product Advertising API and the Ebay Finding API to simultaneously find new and used products with one input.
 
+![](images/screenshot1.png)
+
