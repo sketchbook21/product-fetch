@@ -7,3 +7,7 @@ Product search tool that utilizes the Amazon Product Advertising API and the Eba
 ### Screenshot
 
 ![](images/screenshot1.png)
+
+### Notes & Limitations
+
+1. Due to Amazon's API restrictions, this app is no longer in production.
